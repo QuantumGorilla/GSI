@@ -169,7 +169,9 @@ public class Checker {
             quickSort(information, left, partition - 1, field, fields);
             quickSort(information, partition + 1, right, field, fields);
         } else {
-            showMeTheSort(information, fields);
+            if (left > right) {
+                showMeTheSort(information, fields);
+            }
         }
 
     }
