@@ -52,7 +52,7 @@ public class GSI {
         Checker.checkTrend(information, lengthFields[checkField], checkField);
 
         Long st = System.nanoTime();
-        Checker.quickSort(information, 0, information.length, 0);
+        Checker.quickSort(information, 0, information.length - 1, 0, fields);
         System.out.println("Tiempo de ejecuciòn del ordenamiento: " + (System.nanoTime() - st));
 
         System.out.println("Tiempo de ejecución del programa para " + registers + " registros y " + fields

@@ -14,8 +14,9 @@ public class Checker {
     private static Scanner sc = new Scanner(System.in);
 
     /**
-     * Función que sirve para comprobar que no se digite una cantidad de registros
-     * menor que 0
+     * Función que sirve para comprobar que no se digite una cantidad de
+     * registros menor que 0
+     *
      * @param registers
      * @return registers > 0
      */
@@ -30,6 +31,7 @@ public class Checker {
     /**
      * Función que sirve para comprobar que no se digite una cantidad menor que
      * 0 en los campos
+     *
      * @param fields
      * @return fields > 0
      */
@@ -42,8 +44,9 @@ public class Checker {
     }
 
     /**
-     * Función que sirve para comprobar que no se digite una cantidad menor que 
+     * Función que sirve para comprobar que no se digite una cantidad menor que
      * 0 en la longitud de los campos
+     *
      * @param length
      * @return length > 0
      */
@@ -56,11 +59,12 @@ public class Checker {
     }
 
     /**
-     * Función que calcula el promedio de todos los registros en el campo númerico Ci, digitado
-     * por el usuario
+     * Función que calcula el promedio de todos los registros en el campo
+     * númerico Ci, digitado por el usuario
+     *
      * @param information
      * @param fieldLength
-     * @param checkAverageField 
+     * @param checkAverageField
      */
     public static void fieldAverage(String[][] information, int fieldLength, int checkAverageField) {
         Long ts = System.nanoTime();
@@ -76,11 +80,12 @@ public class Checker {
     }
 
     /**
-     * Función que sirve para sacar el valor máximo de todos los registros en el campo númerico Ci, digitado
-     * por el usuario
+     * Función que sirve para sacar el valor máximo de todos los registros en el
+     * campo númerico Ci, digitado por el usuario
+     *
      * @param information
      * @param fieldLength
-     * @param field 
+     * @param field
      */
     public static void maximumValue(String[][] information, int fieldLength, int field) {
         Long ts = System.nanoTime();
@@ -97,11 +102,12 @@ public class Checker {
     }
 
     /**
-     * Función que calcula el valor mínimo de todos los registros en el campo númerico Ci, digitados por el 
-     * usuario
+     * Función que calcula el valor mínimo de todos los registros en el campo
+     * númerico Ci, digitados por el usuario
+     *
      * @param information
      * @param fieldLength
-     * @param field 
+     * @param field
      */
     public static void minimumValue(String[][] information, int fieldLength, int field) {
         Long ts = System.nanoTime();
@@ -118,11 +124,12 @@ public class Checker {
     }
 
     /**
-     * Función que sirve para calcular la moda de todos los registros en el campo
-     * Ci, digitado por el usuario
+     * Función que sirve para calcular la moda de todos los registros en el
+     * campo Ci, digitado por el usuario
+     *
      * @param information
      * @param fieldLength
-     * @param field 
+     * @param field
      */
     public static void checkTrend(String[][] information, int fieldLength, int field) {
         Long ts = System.nanoTime();
@@ -148,23 +155,28 @@ public class Checker {
 
     /**
      * Función que hace un llamado recursivo para ordenar la matriz (QuickSort)
+     *
      * @param information
      * @param left
      * @param right
-     * @param field 
+     * @param field
+     * @param fields
      * @see sortKeys(String[][] everything, int left, int right, int field)
      */
-    public static void quickSort(String[][] information, int left, int right, int field) {
+    public static void quickSort(String[][] information, int left, int right, int field, int fields) {
         if (left < right) {
             int partition = sortKeys(information, left, right, field);
-            quickSort(information, left, partition - 1, field);
-            quickSort(information, partition + 1, right, field);
+            quickSort(information, left, partition - 1, field, fields);
+            quickSort(information, partition + 1, right, field, fields);
+        } else {
+            showMeTheSort(information, fields);
         }
-        showMeTheSort(information, right);
+
     }
 
     /**
      * Función que hace las particiones respectivas del quicksort
+     *
      * @param information
      * @param left
      * @param right
@@ -189,9 +201,11 @@ public class Checker {
     }
 
     /**
-     * Función que sirve para ir mostrando como va el ordenamiento y el resultado final
+     * Función que sirve para ir mostrando como va el ordenamiento y el
+     * resultado final
+     *
      * @param information
-     * @param fields 
+     * @param fields
      */
     private static void showMeTheSort(String[][] information, int fields) {
         System.out.println("La estructura ordenada: ");
