@@ -31,7 +31,9 @@ public class GSI {
 
         System.out.print("Dígite el campo que desea consultar: ");
         int checkField = sc.nextInt();
-        rg.showMeTheField(checkField, registers, fields);
+        System.out.print("Dígite el registro exacto que desea consultar del campo " + checkField + "(Sin corchetes):");
+        String lookInfo = sc.next();
+        rg.showMeTheField(checkField, registers, fields, lookInfo);
 
         System.out.print("Dígite el campo del cual desea consultar el valor máximo (Los campos númericos son pares): ");
         checkField = sc.nextInt();
@@ -44,15 +46,15 @@ public class GSI {
         System.out.print("Dígite el campo del cual desea consultar el promedio (Los campos númericos son pares): ");
         checkField = sc.nextInt();
         Checker.fieldAverage(information, lengthFields[checkField], checkField);
-        
+
         System.out.print("Dígite el campo del cual desea consultar la moda: ");
         checkField = sc.nextInt();
         Checker.checkTrend(information, lengthFields[checkField], checkField);
 
         Long st = System.nanoTime();
-        Checker.quickSort(information, 0, fields-2, 0);
+        Checker.quickSort(information, 0, information.length, 0);
         System.out.println("Tiempo de ejecuciòn del ordenamiento: " + (System.nanoTime() - st));
-        
+
         System.out.println("Tiempo de ejecución del programa para " + registers + " registros y " + fields
                 + " campos: " + (System.nanoTime() - ts));
     }

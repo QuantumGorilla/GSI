@@ -14,8 +14,9 @@ public class RandomGenerator {
     private String[][] information;
 
     /**
-     * Función que genera números aleatorios de un campo con longitud K
-     * digitada previamente por el usuario
+     * Función que genera números aleatorios de un campo con longitud K digitada
+     * previamente por el usuario
+     *
      * @param fieldLength
      * @return numericValue
      */
@@ -28,10 +29,11 @@ public class RandomGenerator {
     }
 
     /**
-     * Función que genera Strings aleatorios de un campo con longitud K
-     * digitada previamente por el usuario
+     * Función que genera Strings aleatorios de un campo con longitud K digitada
+     * previamente por el usuario
+     *
      * @param fieldLength
-     * @return 
+     * @return
      */
     public String generateRandomString(int fieldLength) {
         String abc = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnÑñOoPpQqRrSsTtUuVvWwXxYyZz";
@@ -43,8 +45,10 @@ public class RandomGenerator {
     }
 
     /**
-     * Función que se encarga de preguntar al usuario la longitud de todos los campos
-     * en todos los registros, donde cada campo puede tener o no la misma longitud que cualquier otro
+     * Función que se encarga de preguntar al usuario la longitud de todos los
+     * campos en todos los registros, donde cada campo puede tener o no la misma
+     * longitud que cualquier otro
+     *
      * @param fields
      * @return fieldLength
      */
@@ -61,8 +65,9 @@ public class RandomGenerator {
     }
 
     /**
-     * Función que crea registros, donde cada registro dpendiendo si es un registro
-     * par o impar tendrá campo númerico o campo alfabetico 
+     * Función que crea registros, donde cada registro dpendiendo si es un
+     * registro par o impar tendrá campo númerico o campo alfabetico
+     *
      * @param registers
      * @param fields
      * @param lengthFields
@@ -86,11 +91,12 @@ public class RandomGenerator {
     }
 
     /**
-     * Función que muestra el resultado final después de haber sido llenada completamente la matriz
-     * con la información correspondiente
+     * Función que muestra el resultado final después de haber sido llenada
+     * completamente la matriz con la información correspondiente
+     *
      * @param information
      * @param registers
-     * @param fields 
+     * @param fields
      */
     public void showEverything(String[][] information, int registers, int fields) {
         for (int i = 0; i < registers; i++) {
@@ -104,11 +110,12 @@ public class RandomGenerator {
     /**
      * Función que mostrará el campo especifico que quiera consultar el usuario
      * (Solo se consultará una vez por ejecución)
+     *
      * @param checkField
      * @param registers
-     * @param fields 
+     * @param fields
      */
-    public void showMeTheField(int checkField, int registers, int fields) {
+    public void showMeTheField(int checkField, int registers, int fields, String lookInfo) {
         Long ts = System.nanoTime();
         for (int i = 0; i < registers; i++) {
             for (int j = 0; j < fields; j++) {
@@ -118,7 +125,15 @@ public class RandomGenerator {
             }
             System.out.println("");
         }
+        findTheRegister(lookInfo, checkField);
         System.out.println("Tiempo de busqueda de los campos Ci: " + (System.nanoTime() - ts));
     }
 
+    public void findTheRegister(String lookInfo, int checkField) {
+        for (int i = 0; i < this.information.length; i++) {
+            if (lookInfo.equals(information[i][checkField])) {
+                System.out.println("El registro: " + lookInfo + " sí existe");
+            } 
+        }
+    }
 }
