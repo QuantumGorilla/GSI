@@ -115,8 +115,7 @@ public class RandomGenerator {
      * @param registers
      * @param fields
      */
-    public void showMeTheField(int checkField, int registers, int fields, String lookInfo) {
-        Long ts = System.nanoTime();
+    public void showMeTheField(int checkField, int registers, int fields) {
         for (int i = 0; i < registers; i++) {
             for (int j = 0; j < fields; j++) {
                 if (checkField == j) {
@@ -125,15 +124,15 @@ public class RandomGenerator {
             }
             System.out.println("");
         }
-        findTheRegister(lookInfo, checkField);
-        System.out.println("Tiempo de busqueda de los campos Ci: " + (System.nanoTime() - ts));
     }
 
     public void findTheRegister(String lookInfo, int checkField) {
+        Long ts = System.nanoTime();
         for (int i = 0; i < this.information.length; i++) {
             if (lookInfo.equals(information[i][checkField])) {
                 System.out.println("El registro: " + lookInfo + " sí existe");
             } 
         }
+        System.out.println("Tiempo de busqueda de los campos Ci: " + (System.nanoTime() - ts));
     }
 }

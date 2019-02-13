@@ -31,9 +31,10 @@ public class GSI {
 
         System.out.print("Dígite el campo que desea consultar: ");
         int checkField = sc.nextInt();
+        rg.showMeTheField(checkField, registers, fields);
         System.out.print("Dígite el registro exacto que desea consultar del campo " + checkField + "(Sin corchetes):");
         String lookInfo = sc.next();
-        rg.showMeTheField(checkField, registers, fields, lookInfo);
+        rg.findTheRegister(lookInfo, checkField);
 
         System.out.print("Dígite el campo del cual desea consultar el valor máximo (Los campos númericos son pares): ");
         checkField = sc.nextInt();
@@ -49,6 +50,7 @@ public class GSI {
 
         System.out.print("Dígite el campo del cual desea consultar la moda: ");
         checkField = sc.nextInt();
+        rg.showMeTheField(checkField, registers, fields);
         Checker.checkTrend(information, lengthFields[checkField], checkField);
 
         Long st = System.nanoTime();
