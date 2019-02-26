@@ -1,5 +1,6 @@
 package GSI;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Scanner;
  */
 public class GSI {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Long ts = System.nanoTime();
 
         RandomGenerator rg = new RandomGenerator();
@@ -28,6 +29,7 @@ public class GSI {
         int[] lengthFields = rg.lengthFields(fields);
 
         String[][] information = rg.generateRegisters(registers, fields, lengthFields);
+        ArchiveManager.createFile(information, registers, fields);
 
         System.out.print("Dígite el campo que desea consultar: ");
         int checkField = sc.nextInt();
@@ -42,7 +44,7 @@ public class GSI {
 
         System.out.print("Dígite el campo del cual desea consultar el valor mínimo (Los campos númericos son pares): ");
         checkField = sc.nextInt();
-        Checker.minimumValue(information, lengthFields[checkField], checkField);
+        Checker.minimumValue(information, lengthFields[checkField], checkField, information[0][checkField]);
 
         System.out.print("Dígite el campo del cual desea consultar el promedio (Los campos númericos son pares): ");
         checkField = sc.nextInt();
@@ -54,7 +56,8 @@ public class GSI {
         Checker.checkTrend(information, lengthFields[checkField], checkField);
 
         Long st = System.nanoTime();
-        Checker.quickSort(information, 0, information.length - 1, 0, fields);
+        String[][] organized = Checker.quickSort(information, 0, information.length - 1, 0, fields);
+        Checker.showMeTheSort(organized, fields);
         System.out.println("Tiempo de ejecuciòn del ordenamiento: " + (System.nanoTime() - st));
 
         System.out.println("Tiempo de ejecución del programa para " + registers + " registros y " + fields

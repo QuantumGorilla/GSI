@@ -36,10 +36,10 @@ public class RandomGenerator {
      * @return
      */
     public String generateRandomString(int fieldLength) {
-        String abc = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnÑñOoPpQqRrSsTtUuVvWwXxYyZz";
+        String abc = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
         String alphabeticValue = "";
         for (int i = 0; i < fieldLength; i++) {
-            alphabeticValue = alphabeticValue + abc.charAt((int) (Math.random() * 54));
+            alphabeticValue = alphabeticValue + abc.charAt((int) (Math.random() * 52));
         }
         return alphabeticValue;
     }
@@ -117,22 +117,25 @@ public class RandomGenerator {
      */
     public void showMeTheField(int checkField, int registers, int fields) {
         for (int i = 0; i < registers; i++) {
-            for (int j = 0; j < fields; j++) {
-                if (checkField == j) {
-                    System.out.print("[" + this.information[i][j] + "]");
-                }
-            }
+            System.out.print("[" + this.information[i][checkField] + "]");
             System.out.println("");
         }
     }
 
     public void findTheRegister(String lookInfo, int checkField) {
         Long ts = System.nanoTime();
-        for (int i = 0; i < this.information.length; i++) {
-            if (lookInfo.equals(information[i][checkField])) {
-                System.out.println("El registro: " + lookInfo + " sí existe");
-            } 
+        boolean exists = false;
+        for (String[] info : this.information) {
+            if (lookInfo.equals(info[checkField])) {
+                exists = true;
+            }
         }
+        if (exists) {
+            System.out.println("El registro: " + lookInfo + " sí existe");
+        } else {
+            System.out.println("El registro: " + lookInfo + " no existe");
+        }
+
         System.out.println("Tiempo de busqueda de los campos Ci: " + (System.nanoTime() - ts));
     }
 }

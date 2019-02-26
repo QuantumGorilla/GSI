@@ -1,5 +1,6 @@
 package GSI;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Scanner;
 
@@ -68,13 +69,13 @@ public class Checker {
      */
     public static void fieldAverage(String[][] information, int fieldLength, int checkAverageField) {
         Long ts = System.nanoTime();
-        long prom = 0;
-        for (int i = 0; i < information.length; i++) {
-            for (int j = 0; j < fieldLength; j++) {
-                prom += Long.valueOf(String.valueOf(information[i][checkAverageField].charAt(j)));
-            }
+        BigDecimal prom = BigDecimal.ZERO;
+        long length = 0;
+        for (String[] info : information) {
+            prom = prom.add(new BigDecimal(info[checkAverageField]));
+            length++;
         }
-        prom /= information.length;
+        prom = prom.divide(BigDecimal.valueOf(length));
         System.out.println("El promedio de los campos " + checkAverageField + " es: " + prom);
         System.out.println("Tiempo de ejecución de cálculo de promedio: " + (System.nanoTime() - ts));
     }
@@ -89,12 +90,10 @@ public class Checker {
      */
     public static void maximumValue(String[][] information, int fieldLength, int field) {
         Long ts = System.nanoTime();
-        long maximum = 0;
+        BigInteger maximum = BigInteger.ZERO;
         for (int i = 0; i < information.length; i++) {
-            for (int j = 0; j < fieldLength; j++) {
-                if (maximum < Long.parseLong(String.valueOf(information[i][field].charAt(j)))) {
-                    maximum = Long.parseLong(String.valueOf(information[i][field].charAt(j)));
-                }
+            if (maximum.compareTo(new BigInteger(information[i][field])) == -1) {
+                maximum = new BigInteger(information[i][field]);
             }
         }
         System.out.println("El valor máximo de los campos " + field + " es: " + maximum);
@@ -108,15 +107,14 @@ public class Checker {
      * @param information
      * @param fieldLength
      * @param field
+     * @param pivot
      */
-    public static void minimumValue(String[][] information, int fieldLength, int field) {
+    public static void minimumValue(String[][] information, int fieldLength, int field, String pivot) {
         Long ts = System.nanoTime();
-        long minimum = 10000;
-        for (int i = 0; i < information.length; i++) {
-            for (int j = 0; j < fieldLength; j++) {
-                if (minimum > Long.parseLong(String.valueOf(information[i][field].charAt(j)))) {
-                    minimum = Long.parseLong(String.valueOf(information[i][field].charAt(j)));
-                }
+        BigInteger minimum = new BigInteger(pivot).multiply(BigInteger.TEN);
+        for (String[] info : information) {
+            if (minimum.compareTo(new BigInteger(info[field])) == 1) {
+                minimum = new BigInteger(info[field]);
             }
         }
         System.out.println("El valor mínimo de los campos " + field + " es: " + minimum);
@@ -161,19 +159,16 @@ public class Checker {
      * @param right
      * @param field
      * @param fields
+     * @return
      * @see sortKeys(String[][] everything, int left, int right, int field)
      */
-    public static void quickSort(String[][] information, int left, int right, int field, int fields) {
+    public static String[][] quickSort(String[][] information, int left, int right, int field, int fields) {
         if (left < right) {
             int partition = sortKeys(information, left, right, field);
-            quickSort(information, left, partition - 1, field, fields);
-            quickSort(information, partition + 1, right, field, fields);
-        } else {
-            if (left > right) {
-                showMeTheSort(information, fields);
-            }
+            information = quickSort(information, left, partition - 1, field, fields);
+            information = quickSort(information, partition + 1, right, field, fields);
         }
-
+        return information;
     }
 
     /**
@@ -209,13 +204,14 @@ public class Checker {
      * @param information
      * @param fields
      */
-    private static void showMeTheSort(String[][] information, int fields) {
+    public static void showMeTheSort(String[][] information, int fields) {
         System.out.println("La estructura ordenada: ");
-        for (int i = 0; i < information.length; i++) {
+        for (String[] info : information) {
             for (int j = 0; j < fields; j++) {
-                System.out.print("[" + information[i][j] + "]");
+                System.out.print("[" + info[j] + "]");
             }
             System.out.println("");
         }
+        ArchiveManager.createOrganizedFile(information, information.length, fields);
     }
 }
