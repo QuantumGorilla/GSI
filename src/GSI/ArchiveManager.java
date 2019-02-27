@@ -13,6 +13,8 @@ import java.util.Scanner;
 /**
  *
  * @author Alejandro
+ * @2.5
+ * @since 26/2/2019
  */
 public class ArchiveManager {
 

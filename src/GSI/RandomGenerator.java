@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  *
  * @author Alejandro
- * @version 2.0
+ * @version 2.5
  * @since 4/2/2019
  */
 public class RandomGenerator {
