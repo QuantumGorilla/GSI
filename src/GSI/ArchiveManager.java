@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -73,10 +75,11 @@ public class ArchiveManager {
     /**
      * Función que pregunta la ubicación del archivo de donde se obtendran los
      * datos y los devuelve en una matriz
+     *
      * @param registers
      * @param fields
      * @return info
-     * @throws IOException 
+     * @throws IOException
      */
     public static String[][] readFromArchive(int registers, int fields) throws IOException {
         System.out.print("Digite la ruta donde se buscará el archivo: ");
@@ -97,8 +100,9 @@ public class ArchiveManager {
     }
 
     /**
-     * Función que obtiene el archivo de donde se extraeran los datos
-     * unicamente usada por la función readFromArchive
+     * Función que obtiene el archivo de donde se extraeran los datos unicamente
+     * usada por la función readFromArchive
+     *
      * @param path
      * @see readFromArchive
      * @return br
@@ -117,5 +121,22 @@ public class ArchiveManager {
             System.out.println(e.getMessage());
         }
         return br;
+    }
+
+    public static void toCountFromFile() throws IOException {
+        System.out.print("Digite la ruta donde se buscará el archivo: ");
+        path = sc.next();
+        BufferedReader br = findFile(path);
+        String line = br.readLine();
+        int registerCounter = 0;
+        String[] information = null;
+        while (line != null) {
+            information = line.split(",");
+            registerCounter++;
+            line = br.readLine();
+        }
+        System.out.println("Tiene " + registerCounter + " registros");
+        System.out.println("Tiene " + information.length + " campos");
+
     }
 }

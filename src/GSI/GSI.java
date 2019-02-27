@@ -13,7 +13,7 @@ public class GSI {
 
     public static void main(String[] args) throws IOException {
         Long ts = System.nanoTime();
-
+        
         RandomGenerator rg = new RandomGenerator();
 
         Scanner sc = new Scanner(System.in);

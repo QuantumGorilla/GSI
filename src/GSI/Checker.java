@@ -211,16 +211,4 @@ public class Checker {
         }
         ArchiveManager.createOrganizedFile(information, information.length, fields);
     }
-    /*
-    public static void registersCounter(String[][] info){
-        System.out.println("///////////////////////////////////////////");
-        System.out.println("Tiene " + info.length + " registros");
-        System.out.println("///////////////////////////////////////////");
-    }
-    
-    public static void fieldsCounter(String[][] info){
-        System.out.println("////////////////////////////////////////////");
-        System.out.println("Tiene " + info[0].length + " campos");
-        System.out.println("////////////////////////////////////////////");
-    }*/
 }
