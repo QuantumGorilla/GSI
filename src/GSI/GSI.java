@@ -30,7 +30,7 @@ public class GSI {
 
         String[][] information = rg.generateRegisters(registers, fields, lengthFields);
         ArchiveManager.createFile(information, registers, fields);
-
+        
         System.out.print("Dígite el campo que desea consultar: ");
         int checkField = sc.nextInt();
         rg.showMeTheField(checkField, registers, fields);
@@ -40,23 +40,23 @@ public class GSI {
 
         System.out.print("Dígite el campo del cual desea consultar el valor máximo (Los campos númericos son pares): ");
         checkField = sc.nextInt();
-        Checker.maximumValue(information, lengthFields[checkField], checkField);
+        Checker.maximumValue(ArchiveManager.readFromArchive(registers, fields), lengthFields[checkField], checkField);
 
         System.out.print("Dígite el campo del cual desea consultar el valor mínimo (Los campos númericos son pares): ");
         checkField = sc.nextInt();
-        Checker.minimumValue(information, lengthFields[checkField], checkField, information[0][checkField]);
+        Checker.minimumValue(ArchiveManager.readFromArchive(registers, fields), lengthFields[checkField], checkField, information[0][checkField]);
 
         System.out.print("Dígite el campo del cual desea consultar el promedio (Los campos númericos son pares): ");
         checkField = sc.nextInt();
-        Checker.fieldAverage(information, lengthFields[checkField], checkField);
+        Checker.fieldAverage(ArchiveManager.readFromArchive(registers, fields), lengthFields[checkField], checkField);
 
         System.out.print("Dígite el campo del cual desea consultar la moda: ");
         checkField = sc.nextInt();
         rg.showMeTheField(checkField, registers, fields);
-        Checker.checkTrend(information, lengthFields[checkField], checkField);
+        Checker.checkTrend(ArchiveManager.readFromArchive(registers, fields), lengthFields[checkField], checkField);
 
         Long st = System.nanoTime();
-        String[][] organized = Checker.quickSort(information, 0, information.length - 1, 0, fields);
+        String[][] organized = Checker.quickSort(ArchiveManager.readFromArchive(registers, fields), 0, information.length - 1, 0, fields);
         Checker.showMeTheSort(organized, fields);
         System.out.println("Tiempo de ejecuciòn del ordenamiento: " + (System.nanoTime() - st));
 
