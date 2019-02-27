@@ -17,7 +17,7 @@ public class GSI {
         RandomGenerator rg = new RandomGenerator();
 
         Scanner sc = new Scanner(System.in);
-
+        
         System.out.print("Dígite el número de registros: ");
         int registers = sc.nextInt();
         Checker.checkRegisters(registers);
@@ -40,20 +40,20 @@ public class GSI {
 
         System.out.print("Dígite el campo del cual desea consultar el valor máximo (Los campos númericos son pares): ");
         checkField = sc.nextInt();
-        Checker.maximumValue(ArchiveManager.readFromArchive(registers, fields), lengthFields[checkField], checkField);
+        Checker.maximumValue(ArchiveManager.readFromArchive(registers, fields), registers, checkField);
 
         System.out.print("Dígite el campo del cual desea consultar el valor mínimo (Los campos númericos son pares): ");
         checkField = sc.nextInt();
-        Checker.minimumValue(ArchiveManager.readFromArchive(registers, fields), lengthFields[checkField], checkField, information[0][checkField]);
+        Checker.minimumValue(ArchiveManager.readFromArchive(registers, fields), registers, checkField, information[0][checkField]);
 
         System.out.print("Dígite el campo del cual desea consultar el promedio (Los campos númericos son pares): ");
         checkField = sc.nextInt();
-        Checker.fieldAverage(ArchiveManager.readFromArchive(registers, fields), lengthFields[checkField], checkField);
+        Checker.fieldAverage(ArchiveManager.readFromArchive(registers, fields), registers, checkField);
 
         System.out.print("Dígite el campo del cual desea consultar la moda: ");
         checkField = sc.nextInt();
         rg.showMeTheField(checkField, registers, fields);
-        Checker.checkTrend(ArchiveManager.readFromArchive(registers, fields), lengthFields[checkField], checkField);
+        Checker.checkTrend(ArchiveManager.readFromArchive(registers, fields), checkField);
 
         Long st = System.nanoTime();
         String[][] organized = Checker.quickSort(ArchiveManager.readFromArchive(registers, fields), 0, information.length - 1, 0, fields);

@@ -64,18 +64,16 @@ public class Checker {
      * númerico Ci, digitado por el usuario
      *
      * @param information
-     * @param fieldLength
+     * @param registers
      * @param checkAverageField
      */
-    public static void fieldAverage(String[][] information, int fieldLength, int checkAverageField) {
+    public static void fieldAverage(String[][] information, int registers, int checkAverageField) {
         Long ts = System.nanoTime();
         BigDecimal prom = BigDecimal.ZERO;
-        long length = 0;
         for (String[] info : information) {
             prom = prom.add(new BigDecimal(info[checkAverageField]));
-            length++;
         }
-        prom = prom.divide(BigDecimal.valueOf(length));
+        prom = prom.divide(BigDecimal.valueOf(information.length));
         System.out.println("El promedio de los campos " + checkAverageField + " es: " + prom);
         System.out.println("Tiempo de ejecución de cálculo de promedio: " + (System.nanoTime() - ts));
     }
@@ -85,10 +83,10 @@ public class Checker {
      * campo númerico Ci, digitado por el usuario
      *
      * @param information
-     * @param fieldLength
+     * @param registers
      * @param field
      */
-    public static void maximumValue(String[][] information, int fieldLength, int field) {
+    public static void maximumValue(String[][] information, int registers, int field) {
         Long ts = System.nanoTime();
         BigInteger maximum = BigInteger.ZERO;
         for (int i = 0; i < information.length; i++) {
@@ -105,16 +103,16 @@ public class Checker {
      * númerico Ci, digitados por el usuario
      *
      * @param information
-     * @param fieldLength
+     * @param registers
      * @param field
      * @param pivot
      */
-    public static void minimumValue(String[][] information, int fieldLength, int field, String pivot) {
+    public static void minimumValue(String[][] information, int registers, int field, String pivot) {
         Long ts = System.nanoTime();
         BigInteger minimum = new BigInteger(pivot).multiply(BigInteger.TEN);
-        for (String[] info : information) {
-            if (minimum.compareTo(new BigInteger(info[field])) == 1) {
-                minimum = new BigInteger(info[field]);
+        for (int i = 0; i < information.length; i++) {
+            if (minimum.compareTo(new BigInteger(information[i][field])) == 1) {
+                minimum = new BigInteger(information[i][field]);
             }
         }
         System.out.println("El valor mínimo de los campos " + field + " es: " + minimum);
@@ -126,24 +124,23 @@ public class Checker {
      * campo Ci, digitado por el usuario
      *
      * @param information
-     * @param fieldLength
      * @param field
      */
-    public static void checkTrend(String[][] information, int fieldLength, int field) {
+    public static void checkTrend(String[][] information, int field) {
         Long ts = System.nanoTime();
-        int maxRepetition = 0, repetition = 0;
+        int maxRepetition = 0, repetition;
         String trend = "";
-        char temp = 0;
+        String temp = "";
         for (int i = 0; i < information.length; i++) {
             repetition = 0;
-            for (int j = 0; j < fieldLength; j++) {
-                if (information[i][field].charAt(j) == information[i][field].charAt(j)) {
+            for (int j = i; j < information.length; j++) {
+                if (information[i][field].equals(information[j][field])) {
                     repetition++;
-                    temp = information[i][field].charAt(j);
+                    temp = information[i][field];
                 }
             }
             if (repetition > maxRepetition) {
-                trend = String.valueOf(temp);
+                trend = temp;
                 maxRepetition = repetition;
             }
         }
@@ -214,4 +211,16 @@ public class Checker {
         }
         ArchiveManager.createOrganizedFile(information, information.length, fields);
     }
+    /*
+    public static void registersCounter(String[][] info){
+        System.out.println("///////////////////////////////////////////");
+        System.out.println("Tiene " + info.length + " registros");
+        System.out.println("///////////////////////////////////////////");
+    }
+    
+    public static void fieldsCounter(String[][] info){
+        System.out.println("////////////////////////////////////////////");
+        System.out.println("Tiene " + info[0].length + " campos");
+        System.out.println("////////////////////////////////////////////");
+    }*/
 }
